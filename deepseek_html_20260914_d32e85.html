@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICSCE CENTRE — Aadhaar, PAN & Online Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* RESET & GLOBAL */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: #000000;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.03em;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: #2c2c2c;
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .text-muted {
+      color: #777777;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e8e8e8;
+      transition: all 0.3s ease;
+      padding: 16px 0;
+    }
+
+    .navbar.scrolled {
+      padding: 10px 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .logo svg {
+      width: 32px;
+      height: 32px;
+      stroke: #000;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #000;
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 100px;
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .btn-primary:hover {
+      background: #222;
+      border-color: #222;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: #000;
+      border-color: #000;
+    }
+
+    .btn-outline:hover {
+      background: #f5f5f5;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: #fff;
+      border-color: #fff;
+    }
+
+    .btn-outline-white:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-sm {
+      padding: 9px 22px;
+      font-size: 0.9rem;
+    }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #000;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* MOBILE NAV */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 24px;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 999;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-nav.open {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-nav a {
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 8px 0;
+    }
+
+    .mobile-nav .btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 160px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #f5f5f5;
+      border: 1px solid #e8e8e8;
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 {
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 480px;
+      margin-bottom: 32px;
+      color: #444;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .trust-indicators {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 32px;
+    }
+
+    .trust-indicators span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #222;
+    }
+
+    .trust-indicators svg {
+      width: 18px;
+      height: 18px;
+      stroke: #000;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* HERO IMAGE */
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #f5f5f5;
+      aspect-ratio: 1 / 0.95;
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+      display: block;
+    }
+
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .shape-1 {
+      width: 300px;
+      height: 300px;
+      background: #f0f0f0;
+      top: -60px;
+      right: -60px;
+    }
+
+    .shape-2 {
+      width: 180px;
+      height: 180px;
+      background: #e8e8e8;
+      bottom: -40px;
+      left: -40px;
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 100px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: 28px;
+      overflow: hidden;
+      background: #f5f5f5;
+      aspect-ratio: 1 / 0.9;
+      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.12);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+      display: block;
+    }
+
+    .about-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .about-content > p {
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 32px;
+    }
+
+    .about-features span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #111;
+    }
+
+    .about-features svg {
+      width: 20px;
+      height: 20px;
+      stroke: #000;
+      stroke-width: 2.5;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* SERVICES */
+    .services {
+      padding: 100px 0;
+      background: #fafafa;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 60px;
+    }
+
+    .section-header h2 {
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: #666;
+      font-size: 1.05rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+      border-color: #ccc;
+    }
+
+    .service-number {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #999;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .service-icon {
+      margin-bottom: 20px;
+    }
+
+    .service-icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: #000;
+      stroke-width: 1.6;
+      fill: none;
+    }
+
+    .service-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+      flex-grow: 1;
+      margin-bottom: 24px;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #000;
+      text-decoration: none;
+      transition: gap 0.25s;
+    }
+
+    .service-link:hover {
+      gap: 10px;
+    }
+
+    .service-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: #000;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* WHY US */
+    .why-us {
+      padding: 100px 0;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .why-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: all 0.3s ease;
+    }
+
+    .why-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.08);
+    }
+
+    .why-icon {
+      margin-bottom: 20px;
+    }
+
+    .why-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: #000;
+      stroke-width: 1.6;
+      fill: none;
+    }
+
+    .why-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .why-card p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    /* PROCESS */
+    .process {
+      padding: 100px 0;
+      background: #fafafa;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+
+    .process-step {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .process-step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.08);
+    }
+
+    .step-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #e8e8e8;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -0.04em;
+    }
+
+    .process-step h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .process-step p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 80px 0 100px;
+    }
+
+    .cta-box {
+      background: #000;
+      border-radius: 28px;
+      padding: 70px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-box h2 {
+      color: #fff;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .cta-box p {
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 500px;
+      margin: 0 auto 36px;
+      position: relative;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* CONTACT */
+    .contact {
+      padding: 100px 0 120px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+
+    .contact-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .contact-card h2 {
+      margin-bottom: 32px;
+      font-size: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+
+    .contact-item-icon {
+      width: 44px;
+      height: 44px;
+      background: #f5f5f5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-item-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: #000;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .contact-item-text {
+      padding-top: 4px;
+    }
+
+    .contact-item-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #999;
+      margin-bottom: 4px;
+    }
+
+    .contact-item-value {
+      font-size: 1rem;
+      color: #111;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .map-card {
+      background: #f5f5f5;
+      border: 1px solid #e8e8e8;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      min-height: 460px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-placeholder {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .map-placeholder svg {
+      width: 64px;
+      height: 64px;
+      stroke: #999;
+      stroke-width: 1.2;
+      fill: none;
+      margin-bottom: 20px;
+    }
+
+    .map-placeholder h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: #111;
+    }
+
+    .map-placeholder p {
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    .map-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(#e0e0e0 1px, transparent 1px),
+        linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.6;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #000;
+      color: #fff;
+      padding: 70px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 50px;
+    }
+
+    .footer h3 {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .footer h4 {
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .footer p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 340px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-contact-item {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: none;
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .about-grid {
+        gap: 40px;
+      }
+      .services-grid,
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .process-steps {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links,
+      .navbar .btn-sm {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-nav {
+        display: flex;
+      }
+
+      .hero {
+        padding: 130px 0 70px;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image-wrap {
+        order: -1;
+      }
+
+      .hero-image {
+        aspect-ratio: 1 / 0.8;
+      }
+
+      .hero p {
+        max-width: 100%;
+      }
+
+      .services-grid,
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .process-step {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        text-align: left;
+        padding: 28px 24px;
+      }
+
+      .step-number {
+        font-size: 2.2rem;
+        margin-bottom: 0;
+        min-width: 60px;
+      }
+
+      .cta-box {
+        padding: 50px 28px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .contact-card {
+        padding: 32px 24px;
+      }
+
+      .map-card {
+        min-height: 320px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-features {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-indicators {
+        gap: 14px 20px;
+      }
+
+      .trust-indicators span {
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 18px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .contact-buttons {
+        flex-direction: column;
+      }
+
+      .contact-buttons .btn {
+        width: 100%;
+      }
+
+      .service-card {
+        padding: 26px 22px;
+      }
+
+      .why-card {
+        padding: 26px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3" />
+          <path d="M8 8h8M8 12h8M8 16h5" />
+        </svg>
+        ICSCE CENTRE
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#why-us">Why Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary btn-sm">Get Assistance</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#why-us">Why Us</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn btn-primary">Get Assistance</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content fade-up">
+          <div class="hero-badge">Trusted Online Documentation Service</div>
+          <h1>Simple Documentation.<br>Reliable Assistance.</h1>
+          <p>Get professional assistance with Aadhaar, PAN Card and essential online documentation services — all from one convenient centre.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">Get Assistance →</a>
+            <a href="#services" class="btn btn-outline">View Services</a>
+          </div>
+          <div class="trust-indicators">
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Aadhaar Services
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              PAN Card Services
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Online Applications
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Document Assistance
+            </span>
+          </div>
+        </div>
+        <div class="hero-image-wrap fade-up">
+          <div class="floating-shape shape-1"></div>
+          <div class="floating-shape shape-2"></div>
+          <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1586282391129-3c5e8a6e1a1b?q=80&w=1200&auto=format&fit=crop" alt="Professional documentation service centre desk with laptop and documents" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image fade-up">
+          <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200&auto=format&fit=crop" alt="Professional documentation and online service centre" loading="lazy">
+        </div>
+        <div class="about-content fade-up">
+          <h2>Professional Documentation Assistance</h2>
+          <p>ICSCE CENTRE provides convenient assistance for Aadhaar, PAN Card and online documentation-related services. We help simplify the process so you can complete your work with confidence and ease.</p>
+          <div class="about-features">
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Simple Process
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Professional Assistance
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Convenient Service
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              Document Support
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header fade-up">
+        <h2>Our Services</h2>
+        <p>Essential documentation and online services, made simple and convenient.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-up">
+          <div class="service-number">01</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3" />
+              <circle cx="12" cy="11" r="3" />
+              <path d="M7 17c.5-2 2.5-3 5-3s4.5 1 5 3" />
+            </svg>
+          </div>
+          <h3>Aadhaar Services</h3>
+          <p>Assistance with Aadhaar-related online services and documentation.</p>
+          <a href="#contact" class="service-link">Learn more <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="service-card fade-up">
+          <div class="service-number">02</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="3" />
+              <line x1="2" y1="10" x2="22" y2="10" />
+              <line x1="6" y1="15" x2="10" y2="15" />
+            </svg>
+          </div>
+          <h3>PAN Card Services</h3>
+          <p>PAN card application and related documentation assistance.</p>
+          <a href="#contact" class="service-link">Learn more <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="service-card fade-up">
+          <div class="service-number">03</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="3" />
+              <line x1="8" y1="7" x2="16" y2="7" />
+              <line x1="8" y1="11" x2="16" y2="11" />
+              <line x1="8" y1="15" x2="12" y2="15" />
+            </svg>
+          </div>
+          <h3>Online Applications</h3>
+          <p>Assistance with filling and submitting various online forms and applications.</p>
+          <a href="#contact" class="service-link">Learn more <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="service-card fade-up">
+          <div class="service-number">04</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16v16H4z" />
+              <path d="M8 8h8v8H8z" />
+              <line x1="4" y1="12" x2="8" y2="12" />
+              <line x1="16" y1="12" x2="20" y2="12" />
+              <line x1="12" y1="4" x2="12" y2="8" />
+              <line x1="12" y1="16" x2="12" y2="20" />
+            </svg>
+          </div>
+          <h3>Document Services</h3>
+          <p>Printing, scanning, photocopy and digital document assistance.</p>
+          <a href="#contact" class="service-link">Learn more <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="service-card fade-up">
+          <div class="service-number">05</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <line x1="8" y1="9" x2="16" y2="9" />
+              <line x1="8" y1="13" x2="16" y2="13" />
+              <line x1="8" y1="17" x2="12" y2="17" />
+            </svg>
+          </div>
+          <h3>Government Forms</h3>
+          <p>Help with online government forms and documentation processes.</p>
+          <a href="#contact" class="service-link">Learn more <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="service-card fade-up">
+          <div class="service-number">06</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M8 12h8" />
+              <path d="M12 8v8" />
+            </svg>
+          </div>
+          <h3>Digital Documentation</h3>
+          <p>Document uploading, downloading, formatting and other digital assistance.</p>
+          <a href="#contact" class="service-link">Learn more <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <div class="section-header fade-up">
+        <h2>Why Choose ICSCE CENTRE?</h2>
+        <p>A simple and convenient place for your everyday documentation needs.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <h3>Easy Process</h3>
+          <p>Simple assistance without unnecessary complexity.</p>
+        </div>
+        <div class="why-card fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <h3>Professional Assistance</h3>
+          <p>Careful handling of documentation-related tasks.</p>
+        </div>
+        <div class="why-card fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" />
+            </svg>
+          </div>
+          <h3>Convenient Service</h3>
+          <p>Multiple essential services available at one centre.</p>
+        </div>
+        <div class="why-card fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+          </div>
+          <h3>Clear Guidance</h3>
+          <p>Understand what is required before completing a service.</p>
+        </div>
+        <div class="why-card fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+          </div>
+          <h3>Digital Support</h3>
+          <p>Help with online forms, uploads and applications.</p>
+        </div>
+        <div class="why-card fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h3>Local Service</h3>
+          <p>Convenient documentation assistance for people around Jaishingpur and Jaunpur district.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="container">
+      <div class="section-header fade-up">
+        <h2>How It Works</h2>
+        <p>A simple three-step process for your convenience.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step fade-up">
+          <div class="step-number">01</div>
+          <div>
+            <h3>Bring Your Documents</h3>
+            <p>Visit the centre with the necessary documents for your required service.</p>
+          </div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-number">02</div>
+          <div>
+            <h3>Get Assistance</h3>
+            <p>Our team guides you through the process and helps with your application.</p>
+          </div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-number">03</div>
+          <div>
+            <h3>Complete Your Service</h3>
+            <p>Your documentation or online application is completed efficiently.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box fade-up">
+        <h2>Need Help With Your Documents?</h2>
+        <p>Visit ICSCE CENTRE for Aadhaar, PAN Card and online documentation assistance.</p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary" style="background:#fff;color:#000;border-color:#fff;">Get Assistance</a>
+          <a href="#contact" class="btn btn-outline-white">Contact Centre</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-card fade-up">
+          <h2>Contact ICSCE CENTRE</h2>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <div class="contact-item-text">
+              <div class="contact-item-label">📍 Address</div>
+              <div class="contact-item-value">Jaishingpur, Jaunpur District, Uttar Pradesh, India</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </div>
+            <div class="contact-item-text">
+              <div class="contact-item-label">📞 Mobile</div>
+              <div class="contact-item-value">Coming Soon</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <div class="contact-item-text">
+              <div class="contact-item-label">✉ Email</div>
+              <div class="contact-item-value">Coming Soon</div>
+            </div>
+          </div>
+          <div class="contact-buttons">
+            <a href="#contact" class="btn btn-primary" style="pointer-events:none;opacity:0.6;">Call Centre</a>
+            <a href="#contact" class="btn btn-outline" style="pointer-events:none;opacity:0.6;">Get Directions</a>
+          </div>
+        </div>
+        <div class="map-card fade-up">
+          <div class="map-grid-bg"></div>
+          <div class="map-placeholder">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <h3>Jaishingpur, Jaunpur District</h3>
+            <p>Uttar Pradesh, India</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>ICSCE CENTRE</h3>
+          <p>Professional Aadhaar, PAN Card & Online Documentation Assistance.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#why-us">Why Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <div class="footer-contact-item">Jaishingpur, Jaunpur District, Uttar Pradesh</div>
+          <div class="footer-contact-item">Mobile: Coming Soon</div>
+          <div class="footer-contact-item">Email: Coming Soon</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ICSCE CENTRE. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileNav.classList.toggle('open');
+    });
+
+    // Close mobile nav on link click
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('open');
+      });
+    });
+
+    // Fade-up animation with Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
